@@ -8,18 +8,12 @@
   &nbsp;
 </div>
 
-<br>
-
 > Trust the master, this will make your coding simple.
-
-<br>
 
 ## Getting Start
 ```
 npm install @master/business
 ```
-
-<br>
 
 ### `tsconfig.json`
 ```tsx
@@ -30,8 +24,6 @@ npm install @master/business
     }
 }
 ```
-
-<br>
 
 ## Usage
 
@@ -53,16 +45,12 @@ Decorate the property that need to be validated
 | `arrayType` | any                 | Assuming the type is YourType[], the target type must be additionally defined here |
 | `enum`      | Record<string, any> | Assuming the type is enum, the target type must be additionally defined here       |
 
-<br>
-
 ### `@Output(options?)`
 Decorate the property that need to be outputed
 
 | options    | type    | description                                                          |
 | ---------- | ------- | -------------------------------------------------------------------- |
 | `disabled` | boolean | Used to disable the @Input() decoration behavior of extended objects |
-
-<br>
 
 ## Example
 The front-end inputs the registration data to the server through the sign-up API, and then outputs the registration result back to the front-end.
@@ -197,8 +185,6 @@ export class MemberController {
 }
 ```
 
-<br>
-
 ## @Input definitions
 ```tsx
 @Business()
@@ -217,8 +203,6 @@ class MyBusiness extends BusinessModel {
 }
 ```
 
-<br>
-
 ## Solutions
 - ### Provide a rich access interface for developers
 - ### Follow the DRY principle (Don't repeat yourself)
@@ -226,8 +210,6 @@ class MyBusiness extends BusinessModel {
 - ### Data structure focuses on one interface
 - ### Reduce code writing
 - ### No need to define variables individually to manipulate data
-
-<br>
 
 ## Code Contributors
 |[<img alt="BenSeage" src="https://avatars.githubusercontent.com/u/37956868?v=4&s=117" width="117">](https://github.com/BenSeage) |[<img alt="aron-tw" src="https://avatars.githubusercontent.com/u/33840671?v=4&s=117" width="117">](https://github.com/aron-tw) |[<img alt="miles0930" src="https://avatars.githubusercontent.com/u/8224584?v=4&s=117" width="117">](https://github.com/miles0930)  |[<img alt="BenSeage" src="https://avatars.githubusercontent.com/u/8954023?v=4&s=117" width="117">](https://github.com/zxa011023) |
