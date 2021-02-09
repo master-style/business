@@ -49,7 +49,7 @@ Decorate the property that need to be validated
 | options     | type                | description                                                                        |
 | ----------- | ------------------- | ---------------------------------------------------------------------------------- |
 | `disabled`  | boolean             | Used to disable the @Input() decoration behavior of extended objects               |
-| `required`  | boolean             | Is the property required                                                              |
+| `required`  | boolean             | Is the property required                                                           |
 | `arrayType` | any                 | Assuming the type is YourType[], the target type must be additionally defined here |
 | `enum`      | Record<string, any> | Assuming the type is enum, the target type must be additionally defined here       |
 
@@ -232,30 +232,6 @@ class MyBusiness extends BusinessModel {
 
 ## Code Contributors
 
-<div style="display: inline-block; width: 100px; margin-top: 1rem; margin-right: 1rem" align="center">
-
-[![Ben Seage](https://avatars.githubusercontent.com/u/37956868?v=4)](https://github.com/BenSeage)
-Ben Seage
-<small style="display: block">creator</small>
-</div>
-
-<div style="display: inline-block; width: 100px; margin-top: 1rem; margin-right: 1rem" align="center">
-
-[![Aron](https://avatars.githubusercontent.com/u/33840671?v=4)](https://github.com/aron-tw)
-Aron
-<small style="display: block">designer</small>
-</div>
-
-<div style="display: inline-block; width: 100px; margin-top: 1rem; margin-right: 1rem" align="center">
-
-[![Miles](https://avatars.githubusercontent.com/u/8224584)](https://github.com/miles0930)
-Miles
-<small style="display: block">maintainer</small>
-</div>
-
-<div style="display: inline-block; width: 100px; margin-top: 1rem; margin-right: 1rem" align="center">
-
-[![Lola](https://avatars.githubusercontent.com/u/8954023)](https://github.com/zxa011023)
-Lola
-<small style="display: block">maintainer</small>
-</div>
+[<img alt="aron-tw" src="https://avatars.githubusercontent.com/u/33840671?v=4&s=117 width=117">](https://github.com/aron-tw) |[<img alt="miles0930" src="https://avatars.githubusercontent.com/u/8224584?v=4&s=117 width=117">](https://github.com/miles0930) |[<img alt="BenSeage" src="https://avatars.githubusercontent.com/u/37956868?v=4&s=117 width=117">](https://github.com/BenSeage) |
+:---:|:---:|:---:|
+[aron-tw](https://github.com/aron-tw)|[miles0930](https://github.com/miles0930)|[BenSeage](https://github.com/BenSeage)|
