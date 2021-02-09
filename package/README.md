@@ -25,7 +25,7 @@ npm install @master/business
     "compilerOptions": {
         "emitDecoratorMetadata": true,
         "experimentalDecorators": true
-	}
+    }
 }
 ```
 
@@ -74,33 +74,33 @@ import { Business, BusinessModel, Input } from '@master/business';
 @Business()
 export class SigningUp extends BusinessModel {
 
-	@Output()
-	// 輸入：姓名為字串且必填
-	@Input({ required: true })
-	name: string;
+    @Output()
+    // 輸入：姓名為字串且必填
+    @Input({ required: true })
+    name: string;
 
-	// 輸入：地址，根據巢狀類型驗證欄位
-	@Output()
+    // 輸入：地址，根據巢狀類型驗證欄位
+    @Output()
     @Input()
-	address: SigningUpAddress;
+    address: SigningUpAddress;
 
-	// 其他業務過程的產物欄位
-	a = 1;
-	b = 2;
+    // 其他業務過程的產物欄位
+    a = 1;
+    b = 2;
 }
 
 @Business()
 class SigningUpAddress extends BusinessModel {
-	
-	@Output()
-	@Input()
-	city: string;
+    
+    @Output()
+    @Input()
+    city: string;
 
-	@Input()
-	district: string;
-	
-	@Input()
-	street: string;
+    @Input()
+    district: string;
+    
+    @Input()
+    street: string;
 }
 ```
 
@@ -117,7 +117,7 @@ import { SigningUp } from './signing-up.ts';
 
 @Controller('member')
 export class MemberController {
-		constructor(
+        constructor(
         private memberService: MemberService
     ) {}
 
@@ -127,14 +127,14 @@ export class MemberController {
         @Res() res: Response
     ): Promise<void> {
         const signingUp = new SigningUp(data);
-		const errors = signingUp.validate();
-		// 驗證
-		if(errors.length) {
-			// 欄位錯誤
-			res.status(400).send(errors);
-		} else {
-			// 欄位正確
-			// 註冊相關業務邏輯 ...
+        const errors = signingUp.validate();
+        // 驗證
+        if(errors.length) {
+            // 欄位錯誤
+            res.status(400).send(errors);
+        } else {
+            // 欄位正確
+            // 註冊相關業務邏輯 ...
             this.memberService.signUp(signingUp);
             res.status(200).send(signingUp);
         }
@@ -145,12 +145,12 @@ export class MemberController {
 ## 前端發出的資料 ( Input )
 ```tsx
 {
-	name: "joy",
-	address: {
-		city: "taipei",
-		district: "zhongshan",
-		street: "my home"
-	}
+    name: "joy",
+    address: {
+        city: "taipei",
+        district: "zhongshan",
+        street: "my home"
+    }
 }
 ```
 
