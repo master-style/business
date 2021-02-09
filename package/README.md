@@ -1,25 +1,27 @@
-# File Structure
-```tree
-.
-├── businesses
-│   └── member
-│       ├── member.controller.ts
-│       ├── member.service.ts
-│       ├── member.ts // DAO
-│       └── signing-up.ts
-└── shared
-```
+<h1 align="center" style="border-bottom: none;">Master Business</h1>
+<h3 align="center">A business data model for quick verification, access and output of specific data formats.</h3>
+
+<div align="center" style="margin-top: 1rem">
+  <a href="#" target="_blank">
+    <img alt="License: MIT" src="https://img.shields.io/badge/License-MIT-yellow.svg" />
+  </a>
+  &nbsp;
+</div>
 
 <br>
 
-# Getting Start
+> Trust the owner, this will make your coding simple.
+
+<br>
+
+## Getting Start
 ```
 npm install @master/business
 ```
 
 <br>
 
-## `tsconfig.json`
+### `tsconfig.json`
 ```tsx
 {
     "compilerOptions": {
@@ -31,62 +33,75 @@ npm install @master/business
 
 <br>
 
-## `extends BusinessModel`
-命名規則：Ving + N
+## Usage
+
+```tsx
+import { Business, BusinessModel, Input, Output } from '@master/business';
+
+@Business()
+export class MyBusiness extends BusinessModel { }
+
+```
+
+### `@Input(options?)`
+Decorate the property that need to be validated
+
+| options     | type                | description                                                                        |
+| ----------- | ------------------- | ---------------------------------------------------------------------------------- |
+| `disabled`  | boolean             | Used to disable the @Input() decoration behavior of extended objects               |
+| `required`  | boolean             | Is the property required                                                              |
+| `arrayType` | any                 | Assuming the type is YourType[], the target type must be additionally defined here |
+| `enum`      | Record<string, any> | Assuming the type is enum, the target type must be additionally defined here       |
 
 <br>
 
-## `@Business`
-裝飾模型
+### `@Output(options?)`
+Decorate the property that need to be outputed
+
+| options    | type    | description                                                          |
+| ---------- | ------- | -------------------------------------------------------------------- |
+| `disabled` | boolean | Used to disable the @Input() decoration behavior of extended objects |
 
 <br>
 
-## `@Input(options?)`
-裝飾需驗證格式的欄位
+## Example
+The front-end inputs the registration data to the server through the sign-up API, and then outputs the registration result back to the front-end.
 
-| options     | type                | description                                |
-| ----------- | ------------------- | ------------------------------------------ |
-| `disabled`  | boolean             | 用於禁用 extends 對象的同樣 @Input() 屬性  |
-| `required`  | boolean             | 必輸入                                     |
-| `arrayType` | any                 | 類型為 SomeType[] 必須於此額外定義目標類型 |
-| `enum`      | Record<string, any> | 類型為 enum 須於此額外定義目標類型         |
+### File Structure
+```tree
+.
+├── businesses
+│   └── member
+│       ├── member.controller.ts
+│       ├── member.service.ts
+│       ├── member.ts // DAO
+│       └── signing-up.ts
+```
 
-<br>
-
-## `@Output(options?)`
-裝飾需輸出的欄位
-| options    | type    | description                               |
-| ---------- | ------- | ----------------------------------------- |
-| `disabled` | boolean | 用於禁用 extends 對象的同樣 @Input() 屬性 |
-
-<br>
-
-# 範例
-前端藉由 sign-up API 將註冊資料輸入至 Server，Server 再將註冊結果輸出回前端
-
-<br>
-
-## 定義 業務流程之模型
+### Define the business model
 ```tsx
 // signing-up.ts 
+
 import { Business, BusinessModel, Input } from '@master/business';
 
 @Business()
 export class SigningUp extends BusinessModel {
 
     @Output()
-    // 輸入：姓名為字串且必填
     @Input({ required: true })
     name: string;
 
-    // 輸入：地址，根據巢狀類型驗證欄位
     @Output()
     @Input()
     address: SigningUpAddress;
 
-    // 其他業務過程的產物欄位
+    @Output()
+    type = 'general';
+    // other fields for quick access
     a = 1;
     b = 2;
+    c = 3;
+    d = 4;
 }
 
 @Business()
@@ -106,12 +121,11 @@ class SigningUpAddress extends BusinessModel {
 
 <br>
 
-## 建立業務過程 ( 以 nestjs 為例 )
+### Process business logic ( nestjs for example )
 ```tsx
 // member.controller.ts
-import { Business, BusinessModel, Input, validate } from '@master/business';
-import { Controller, Post, Res, Body } from '@nestjs/common';
 
+import { Business, BusinessModel, Input, validate } from '@master/business';
 import { MemberService } from './member.service.ts';
 import { SigningUp } from './signing-up.ts';
 
@@ -126,15 +140,17 @@ export class MemberController {
         @Body() data: any,
         @Res() res: Response
     ): Promise<void> {
+
         const signingUp = new SigningUp(data);
         const errors = signingUp.validate();
-        // 驗證
+
+        // validate
         if(errors.length) {
-            // 欄位錯誤
+            // property error
             res.status(400).send(errors);
         } else {
-            // 欄位正確
-            // 註冊相關業務邏輯 ...
+            // correct
+            // business logic process here ...
             this.memberService.signUp(signingUp);
             res.status(200).send(signingUp);
         }
@@ -142,7 +158,7 @@ export class MemberController {
 }
 ```
 
-## 前端發出的資料 ( Input )
+### *Input*：Request data
 ```tsx
 {
     name: "joy",
@@ -154,7 +170,7 @@ export class MemberController {
 }
 ```
 
-## 處理中的模型狀態 ( Model )
+### *Processing*
 ```tsx
 {
     name: "joy",
@@ -163,24 +179,28 @@ export class MemberController {
         district: "zhongshan",
         street: "my home"
     },
+    type: 'general',
     a: 1,
-    b: 2
+    b: 2,
+    c: 3,
+    d: 4
 }
 ```
 
-## 前端接收到的結果 ( Output )
+### *Output*：Response data
 ```tsx
 {
     name: "joy",
     address: {
         city: "taipei"
-    }
+    },
+    type: 'general'
 }
 ```
 
 <br>
 
-# @Input 定義範例
+## @Input definitions
 ```tsx
 @Business()
 class MyBusiness extends BusinessModel {
@@ -200,25 +220,43 @@ class MyBusiness extends BusinessModel {
 
 <br>
 
-# 專有名詞
-- **DAO** ( Data Access Object )：資料存取物件
-- **BM** ( Business Model )：業務模型
+## Solutions
+- ### Provide a rich access interface for developers
+- ### Follow the DRY principle (Don't repeat yourself)
+- ### Omit the definition of Request DTO and Response DTO data structure
+- ### Data structure focuses on one interface
+- ### Reduce code writing
+- ### No need to define variables individually to manipulate data
+- ### No need to write specific
 
 <br>
 
-# 獨創名詞
-- **BD** ( Business Decorator )：業務裝飾器
-- **DID** ( Data Input Decorator )：資料輸入裝飾器
-- **DOD** ( Data Output Decorator )：資料輸出裝飾器
-- **BLA** ( Business Logic Artifact )：業務邏輯產物
+## Code Contributors
 
-<br>
+<div style="display: inline-block; width: 100px; margin-top: 1rem; margin-right: 1rem" align="center">
 
-# 解決問題
-- 提供開發者豐富的存取介面
-- 遵循 DRY 原則 ( Don't repeat yourself )
-- 省去 Request DTO 與 Response DTO 資料結構的定義
-- 資料結構專注於一個介面
-- 減少程式碼撰寫
-- 無需額外定義變數來承接結果
-- 無需撰寫特定
+[![Ben Seage](https://avatars.githubusercontent.com/u/37956868?v=4)](https://github.com/BenSeage)
+Ben Seage
+<small style="display: block">creator</small>
+</div>
+
+<div style="display: inline-block; width: 100px; margin-top: 1rem; margin-right: 1rem" align="center">
+
+[![Aron](https://avatars.githubusercontent.com/u/33840671?v=4)](https://github.com/aron-tw)
+Aron
+<small style="display: block">designer</small>
+</div>
+
+<div style="display: inline-block; width: 100px; margin-top: 1rem; margin-right: 1rem" align="center">
+
+[![Miles](https://avatars.githubusercontent.com/u/8224584)](https://github.com/miles0930)
+Miles
+<small style="display: block">maintainer</small>
+</div>
+
+<div style="display: inline-block; width: 100px; margin-top: 1rem; margin-right: 1rem" align="center">
+
+[![Lola](https://avatars.githubusercontent.com/u/8954023)](https://github.com/zxa011023)
+Lola
+<small style="display: block">maintainer</small>
+</div>
