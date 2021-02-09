@@ -201,8 +201,8 @@ class MyBusiness extends BusinessModel {
 <br>
 
 # 專有名詞
- **DAO** ( Data Access Object )：資料存取物件
- **BM** ( Business Model )：業務模型
+- **DAO** ( Data Access Object )：資料存取物件
+- **BM** ( Business Model )：業務模型
 
 <br>
 
