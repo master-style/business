@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Business, Input, Output, BusinessModel } from '../../package/src';
+import { Business, Input, Output, BusinessModel } from '../../../src';
 
 @Component({
     selector: 'app-root',

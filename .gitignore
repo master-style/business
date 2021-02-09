@@ -9,11 +9,10 @@
 
 # dependencies
 /node_modules
+/doc/node_modules
 
 # package
-/package/node_modules
-/package/compiler/node_modules
-/package/dist
+/doc/node_modules
 
 # profiling files
 chrome-profiler-events*.json
