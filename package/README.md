@@ -1,37 +1,3 @@
-**CONTENTS**
-
-# 專有名詞
-
-**DAO** ( Data Access Object )：資料存取物件
-
-**BM** ( Business Model )：業務模型
-
-# 獨創名詞
-
-**BD** ( Business Decorator )：業務裝飾器 `@Business`
-
-**DID** ( Data Input Decorator )：資料輸入裝飾器 `@Input`
-
-**DOD** ( Data Output Decorator )：資料輸出裝飾器 `@Output`
-
-**BLA** ( Business Logic Artifact )：業務邏輯產物
-
-# 解決問題
-
-將 **BD** 作為該次業務邏輯執行的資料傳輸載體，蒐集業務邏輯產生的結果，單一欄位可能是：
-
-- **DAO** 資料存取物件
-- **BLA** 業務邏輯產物
-- **DID** 對象
-- **DOD** 對象
-1. 提供開發者豐富的存取介面
-2. 遵循 DRY 原則 ( Don't repeat yourself )
-3. 省去 Request DTO 與 Response DTO 資料結構的定義
-4. 資料結構專注於一個介面
-5. 減少程式碼撰寫
-    - 無需額外定義變數來承接結果
-    - 無需撰寫特定
-
 # 檔案結構
 
 ```json
@@ -169,7 +135,7 @@ export class MemberController {
 
 ### 前端發出的資料 ( Input )
 
-```json
+```tsx
 {
 		name: "joy",
 		address: {
@@ -197,7 +163,7 @@ export class MemberController {
 
 ### 前端接收到的結果 ( Output )
 
-```json
+```tsx
 {
 		name: "joy",
 		address: {
@@ -221,3 +187,35 @@ enum: MyEnum;
 @Input({ arrayType: MyArrayType })
 arrayType: MyArrayType[];
 ```
+
+# 專有名詞
+
+**DAO** ( Data Access Object )：資料存取物件
+
+**BM** ( Business Model )：業務模型
+
+# 獨創名詞
+
+**BD** ( Business Decorator )：業務裝飾器 `@Business`
+
+**DID** ( Data Input Decorator )：資料輸入裝飾器 `@Input`
+
+**DOD** ( Data Output Decorator )：資料輸出裝飾器 `@Output`
+
+**BLA** ( Business Logic Artifact )：業務邏輯產物
+
+# 解決問題
+
+將 **BD** 作為該次業務邏輯執行的資料傳輸載體，蒐集業務邏輯產生的結果，單一欄位可能是：
+
+- **DAO** 資料存取物件
+- **BLA** 業務邏輯產物
+- **DID** 對象
+- **DOD** 對象
+1. 提供開發者豐富的存取介面
+2. 遵循 DRY 原則 ( Don't repeat yourself )
+3. 省去 Request DTO 與 Response DTO 資料結構的定義
+4. 資料結構專注於一個介面
+5. 減少程式碼撰寫
+    - 無需額外定義變數來承接結果
+    - 無需撰寫特定
