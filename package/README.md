@@ -97,6 +97,7 @@ export class SigningUp extends BusinessModel {
 
     @Output()
     type = 'general';
+
     // other fields for quick access
     a = 1;
     b = 2;
@@ -118,8 +119,6 @@ class SigningUpAddress extends BusinessModel {
     street: string;
 }
 ```
-
-<br>
 
 ### Process business logic ( nestjs for example )
 ```tsx
@@ -158,7 +157,7 @@ export class MemberController {
 }
 ```
 
-### *Input*：Request data
+### *Input*：request data
 ```tsx
 {
     name: "joy",
@@ -170,7 +169,7 @@ export class MemberController {
 }
 ```
 
-### *Processing*
+### *Processing*：business data
 ```tsx
 {
     name: "joy",
@@ -187,7 +186,7 @@ export class MemberController {
 }
 ```
 
-### *Output*：Response data
+### *Output*：response data
 ```tsx
 {
     name: "joy",
