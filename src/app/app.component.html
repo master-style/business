@@ -1,12 +1,9 @@
 
-<div style="max-width: 800px; margin: auto; padding: 5vw">
-    <p>
-        首次執行<b style="margin-left: 2rem">{{ firstPerformanceTime | number:'0.5' }} ms</b>
-    </p>
-    <p>
-        每次執行<b style="margin-left: 2rem">{{ performanceTime  | number:'0.5' }} ms</b>
-    </p>
-    
-    <div id="create"></div>
-    
-</div>
+<h1>輸入</h1>
+{{ requestData | json }}
+
+<h1>模型</h1>
+{{ tempBusiness | json }}
+
+<h1>輸出</h1>
+{{ myBusiness | json }}

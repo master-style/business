@@ -1,5 +1,5 @@
 {
-    "name": "@master/template",
+    "name": "@master/business",
     "version": "1.0.0",
     "license": "MIT",
     "repository": {
@@ -14,7 +14,7 @@
         "dist"
     ],
     "dependencies": {
-        "@master/dom": "~1.0.0"
+        "reflect-metadata": "^0.1.13"
     },
     "devDependencies": {
         "@babel/core": "^7.12.10",
