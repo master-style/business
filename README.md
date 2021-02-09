@@ -1,14 +1,18 @@
 <h1 align="center" style="border-bottom: none;">Master Business</h1>
 <h3 align="center">A business data model for quick verification, access and output of specific data formats.</h3>
 
-<div align="center" style="margin-top: 1rem">
+<p align="center">
   <a href="#" target="_blank">
     <img alt="License: MIT" src="https://img.shields.io/badge/License-MIT-yellow.svg" />
   </a>
+</p>
+
   &nbsp;
-</div>
+
+<p align="center">
 
 > Trust the master, this will make your coding simple.
+</p>
 
 ## Getting Start
 ```
