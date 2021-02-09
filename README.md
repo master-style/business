@@ -1,4 +1,3 @@
-
 **CONTENTS**
 
 # 專有名詞
@@ -52,6 +51,17 @@
 npm install @master/business
 ```
 
+tsconfig.json
+
+```tsx
+{
+    "compilerOptions": {
+        "emitDecoratorMetadata": true,
+        "experimentalDecorators": true
+		}
+}
+```
+
 ## 類別
 
 - `BusinessModel` 業務模型 ( Naming：Ving / Ving + N )
@@ -100,8 +110,8 @@ export class SigningUp extends BusinessModel {
 	address: SigningUpAddress;
 
 	// 其他業務過程的產物欄位
-	a;
-	b;
+	a = 1;
+	b = 2;
 	...
 }
 
@@ -120,7 +130,7 @@ class SigningUpAddress extends BusinessModel {
 }
 ```
 
-### 傳入資料 ( 以 nestjs 為例 )
+### 建立業務過程 ( 以 nestjs 為例 )
 
 ```tsx
 // member.controller.ts
@@ -154,6 +164,34 @@ export class MemberController {
 	        res.status(200).send(signingUp);
 				}
     }
+}
+```
+
+### 前端發出的資料 ( Input )
+
+```json
+{
+		name: "joy",
+		address: {
+				city: "taipei",
+				district: "zhongshan",
+				street: "my home"
+		}
+}
+```
+
+### 處理中的模型狀態 ( Model )
+
+```tsx
+{
+		name: "joy",
+		address: {
+				city: "taipei",
+				district: "zhongshan",
+				street: "my home"
+		},
+		a: 1,
+		b: 2
 }
 ```
 
