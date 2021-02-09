@@ -188,7 +188,7 @@ class MyBusiness extends BusinessModel {
     str: string;
 
     @Input()
-    num: number = 0;
+    num: number;
 
     @Input({ enum: MyEnum })
     enum: MyEnum;
