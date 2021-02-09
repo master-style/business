@@ -1,7 +1,7 @@
 import { getPropertyMetadata } from './utils/property';
 import { BusinessModel } from './business-model';
 
-export function Business(options?: Record<string, any>) {
+export function Business() {
     return constructor =>
         class extends constructor {
             constructor(data?: Record<string, any>) {
