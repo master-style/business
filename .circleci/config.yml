@@ -8,13 +8,13 @@ jobs:
       - checkout
       - run:
           name: install
-          command: cd package && npm i
+          command: npm i
       - run:
           name: build
-          command: cd package && npx webpack-cli
+          command: npx webpack-cli
       - run:
           name: release
-          command: cd package && npm run semantic-release || true
+          command: npm run semantic-release || true
 
 workflows:
   version: 2
