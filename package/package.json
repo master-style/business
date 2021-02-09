@@ -2,6 +2,7 @@
     "name": "@master/business",
     "version": "1.0.0",
     "license": "MIT",
+    "description": "A business data model for quick verification, access and output of specific data formats.",
     "repository": {
         "type": "git",
         "url": "https://github.com/master-style/business.git"
