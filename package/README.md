@@ -231,7 +231,7 @@ class MyBusiness extends BusinessModel {
 <br>
 
 ## Code Contributors
-
-[<img alt="aron-tw" src="https://avatars.githubusercontent.com/u/33840671?v=4&s=117 width=117">](https://github.com/aron-tw) |[<img alt="miles0930" src="https://avatars.githubusercontent.com/u/8224584?v=4&s=117 width=117">](https://github.com/miles0930) |[<img alt="BenSeage" src="https://avatars.githubusercontent.com/u/37956868?v=4&s=117 width=117">](https://github.com/BenSeage) |
-:---:|:---:|:---:|
-[aron-tw](https://github.com/aron-tw)|[miles0930](https://github.com/miles0930)|[BenSeage](https://github.com/BenSeage)|
+|[<img alt="BenSeage" src="https://avatars.githubusercontent.com/u/37956868?v=4&s=117" width="117">](https://github.com/BenSeage) |[<img alt="aron-tw" src="https://avatars.githubusercontent.com/u/33840671?v=4&s=117" width="117">](https://github.com/aron-tw) |[<img alt="miles0930" src="https://avatars.githubusercontent.com/u/8224584?v=4&s=117" width="117">](https://github.com/miles0930)  |[<img alt="BenSeage" src="https://avatars.githubusercontent.com/u/8954023?v=4&s=117" width="117">](https://github.com/zxa011023) |
+:---:|:---:|:---:|:---:|
+[BenSeage](https://github.com/BenSeage)|[Aron](https://github.com/aron-tw)|[Miles](https://github.com/miles0930)|[Lola](https://github.com/zxa011023)|
+|creator|designer|maintainer|maintainer
