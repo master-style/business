@@ -226,7 +226,6 @@ class MyBusiness extends BusinessModel {
 - ### Data structure focuses on one interface
 - ### Reduce code writing
 - ### No need to define variables individually to manipulate data
-- ### No need to write specific
 
 <br>
 
