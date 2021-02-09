@@ -10,7 +10,7 @@
 
 <br>
 
-> Trust the owner, this will make your coding simple.
+> Trust the master, this will make your coding simple.
 
 <br>
 
