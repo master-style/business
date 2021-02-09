@@ -31,7 +31,19 @@ npm install @master/business
 import { Business, BusinessModel, Input, Output } from '@master/business';
 
 @Business()
-export class MyBusiness extends BusinessModel { }
+export class MyBusiness extends BusinessModel {
+    @Input()
+    prop1: string;
+
+    @Output()
+    prop2: number;
+
+    @Input()
+    @Output()
+    prop3: OtherBusinessModel;
+
+    ...
+}
 
 ```
 
@@ -57,7 +69,6 @@ The front-end inputs the registration data to the server through the sign-up API
 
 ### File Structure
 ```tree
-.
 ├── businesses
 │   └── member
 │       ├── member.controller.ts
