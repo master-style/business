@@ -1,7 +1,6 @@
-import { ClassType } from './interfaces/class-type';
 import { definePropertyMetadata } from './utils/property';
 
-export function Input<T = any>(
+export function Input(
     options?: {
         disabled?: boolean,
         required?: boolean,
