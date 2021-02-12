@@ -2,13 +2,13 @@ version: 2
 
 workflows:
   version: 2
-  release:
+  package:
     jobs:
-      - release-package:
+      - pack & release:
           context: Master
 
 jobs:
-  release-package:
+  pack & release:
     docker:
       - image: 'circleci/node:latest'
     steps:
