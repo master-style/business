@@ -20,5 +20,5 @@ jobs:
           name: build
           command: npx webpack
       - run:
-          name: release
+          name: semantic release
           command: npm run semantic-release || true
