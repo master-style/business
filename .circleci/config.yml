@@ -21,4 +21,4 @@ jobs:
           command: npx webpack
       - run:
           name: release
-          command: semantic-release || true
+          command: npm run semantic-release || true

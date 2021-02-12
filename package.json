@@ -16,7 +16,8 @@
     ],
     "scripts": {
         "start": "npm i && cd doc && npm run start",
-        "pack": "npm i && webpack"
+        "pack": "npm i && webpack",
+        "semantic-release": " semantic-release"
     },
     "dependencies": {
         "reflect-metadata": "^0.1.13"
