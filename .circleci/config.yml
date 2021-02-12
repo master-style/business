@@ -1,5 +1,12 @@
 version: 2
 
+workflows:
+  version: 2
+  release:
+    jobs:
+      - release-package:
+          context: Master
+
 jobs:
   release-package:
     docker:
@@ -11,14 +18,7 @@ jobs:
           command: npm i
       - run:
           name: build
-          command: npx webpack-cli
+          command: npx webpack
       - run:
           name: release
-          command: npm run semantic-release || true
-
-workflows:
-  version: 2
-  release:
-    jobs:
-      - release-package:
-          context: Master
+          command: semantic-release || true
