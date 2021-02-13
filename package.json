@@ -3,10 +3,6 @@
     "version": "1.0.0",
     "license": "MIT",
     "description": "A business data model for quick verification, access and output of specific data formats.",
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/master-style/business.git"
-    },
     "author": "Aoyue Design LTD.",
     "private": false,
     "main": "dist/index.js",
@@ -18,6 +14,31 @@
         "start": "npm i && cd doc && npm run start",
         "pack": "npm i && webpack",
         "semantic-release": " semantic-release"
+    },
+    "keywords": [
+        "react",
+        "nodejs",
+        "api",
+        "koa",
+        "angular",
+        "express",
+        "typescript",
+        "vue",
+        "input",
+        "data-model",
+        "inputs",
+        "verification",
+        "request",
+        "response",
+        "output",
+        "dto",
+        "data-format",
+        "bo",
+        "nestjs"
+    ],
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/master-style/business.git"
     },
     "dependencies": {
         "reflect-metadata": "^0.1.13"

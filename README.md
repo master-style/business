@@ -3,14 +3,10 @@
     <img alt="License: MIT" src="https://img.shields.io/badge/License-MIT-yellow.svg" />
 </a>
 
-  &nbsp;
-
 # Master Business
 ### A business data model for quick verification, access and output of specific data formats.
 
-  &nbsp;
-
-```
+```shell
 npm install @master/business
 ```
 
