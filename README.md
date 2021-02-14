@@ -6,6 +6,8 @@
 # Master Business
 ### A business data model for quick verification, access and output of specific data formats.
 
+&nbsp;
+
 ```shell
 npm install @master/business
 ```
