@@ -15,7 +15,11 @@ module.exports = env => {
         entry: glob.sync(entryGlob).reduce((entrypoint, eachPath) => {
             const parsePath = path.parse(path.relative(path.join('./src'), eachPath));
             const filename = path.join(parsePath.dir, parsePath.name);
-            entrypoint[filename] = [path.resolve(eachPath)];
+            if (entrypoint[filename]) {
+                entrypoint[filename].push(path.resolve(eachPath))
+            } else {
+                entrypoint[filename] = [path.resolve(eachPath)];
+            }
             return entrypoint;
         }, {}),
         externals: Object.keys(package.dependencies),
