@@ -3,14 +3,14 @@ import 'reflect-metadata';
 
 export function definePropertyMetadata<T>(
     target: ClassType<T>,
-    propName: string,
+    name: string,
     columnPropOptions: { key: string, [ortherKey: string]: any }
 ): void {
-    const type = Reflect.getMetadata('design:type', target, propName);
+    const type = Reflect.getMetadata('design:type', target, name);
     const newProperty = Object.assign(
         columnPropOptions,
         {
-            name: propName,
+            name,
             type
         }
     );
