@@ -53,7 +53,8 @@ module.exports = env => {
         },
         output: {
             path: path.resolve('./dist'),
-            libraryTarget: 'umd'
+            libraryTarget: 'umd',
+            globalObject: 'this'
         },
         plugins: [
             new CleanWebpackPlugin(),
