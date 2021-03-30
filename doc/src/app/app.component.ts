@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Business, Input, Output, BusinessModel } from '../../../src';
+import { Business, Rqeuired, Output, BusinessModel, Optional } from '../../../src';
 
 @Component({
     selector: 'app-root',
@@ -11,23 +11,21 @@ export class AppComponent implements OnInit {
     requestData = {
         name: "joy",
         address: {
-            city: "taipei",
+            // city: "taipei",
             district: "zhongshan",
-            street: "my home"
+            street: 'street'
         }
     }
 
-    responseData;
     tempBusiness = {};
-    myBusiness;
-    Object = Object;
-    JSON = JSON;
+    myBusiness: MyBusiness;
 
     constructor() { }
 
     ngOnInit(): void {
         this.myBusiness = new MyBusiness(this.requestData);
         console.log(this.myBusiness);
+
         this.tempBusiness = (function run(target) {
             const tempObj = {};
 
@@ -47,6 +45,8 @@ export class AppComponent implements OnInit {
 
             return tempObj;
         })(this.myBusiness);
+
+        console.log(this.myBusiness.validate());
     }
 }
 
@@ -54,13 +54,13 @@ export class AppComponent implements OnInit {
 class SigningUpAddress extends BusinessModel {
 
     @Output()
-    @Input()
+    @Rqeuired()
     city: string;
 
-    @Input()
+    @Rqeuired()
     district: string;
 
-    @Input()
+    @Optional()
     street: string;
 }
 
@@ -68,16 +68,15 @@ class SigningUpAddress extends BusinessModel {
 export class MyBusiness extends BusinessModel {
 
     @Output()
-    @Input({ required: true })
+    @Rqeuired()
     name: string;
 
     @Output()
-    @Input()
+    @Rqeuired()
     address: SigningUpAddress;
 
     artifact = 1;
     artifact2 = 2;
     artifact3 = 3;
     artifact4 = 4;
-
 }

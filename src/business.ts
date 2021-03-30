@@ -34,9 +34,23 @@ export function Business() {
             toJSON(): Record<string, any> {
                 const newObj: Record<string, any> = {};
         
-                const outputMetadata = getPropertyMetadata(this.constructor, 'output').filter(eachMetadata => !eachMetadata.disabled);
+                const outputMetadata = getPropertyMetadata(this.constructor, 'output');
                 for (const eachOutputMetadata of outputMetadata) {
-                    newObj[eachOutputMetadata.name] = (eachOutputMetadata.ref ? eachOutputMetadata.ref(this) : this[eachOutputMetadata.name]) ?? null;
+                    let firstOptions = eachOutputMetadata.options[0];
+                    if (firstOptions && !('transform' in firstOptions)) {
+                        if (firstOptions.disabled)
+                            continue;
+                    }
+
+                    let value = this[eachOutputMetadata.name];
+                    for (let i = 0; i < eachOutputMetadata.options.length; i++) {
+                        const eachOptions = eachOutputMetadata.options[i];
+                        if (eachOptions) {
+                            value = eachOptions.transform(value);
+                        }
+                    }
+
+                    newObj[eachOutputMetadata.name] = value ?? null;
                 }
         
                 return newObj;

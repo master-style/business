@@ -1,4 +1,14 @@
 import { getPropertyMetadata } from './utils/property';
+import { IsArray } from './utils/is-array';
+import { IsString } from './utils/is-string';
+import { IsNumber } from './utils/is-number';
+import { IsBoolean } from './utils/is-boolean';
+import { IsObject } from './utils/is-object';
+import { IsDate } from './utils/is-date';
+import { IsEnum } from './utils/is-enum';
+import { InputCustomValidate } from './interfaces/input-custom-validate';
+import { InputCustomOptions } from './interfaces/input-custom-options';
+import { InputDefaultOptions } from './interfaces/input-default-options';
 
 export interface ValidationError {
     parent: any,
@@ -9,105 +19,103 @@ export interface ValidationError {
 export function validate(instance): ValidationError[] {
     const validateErrors = [];
 
-    (function checkLoop(inst, propertyMetadata?, parent?) {
+    (function checkLoop(inst, propertyMetadata?, parent?, defaultOptions?) {
         const parentInst = parent ?? inst;
 
-        const checkBasicType = (value, metadata) => {
-            const arrayTips = metadata.type === Array ? ' array' : '';
-            switch (metadata.enum ?? metadata.type) {
-                case String:
-                    if (typeof value !== 'string') {
-                        validateErrors.push({
-                            parent: parentInst,
-                            field: metadata.name,
-                            message: `${metadata.name} must be string` + arrayTips
-                        });
-                    }
-                    break;
-                case Number:
-                    if (typeof value !== 'number') {
-                        validateErrors.push({
-                            parent: parentInst,
-                            field: metadata.name,
-                            message: `${metadata.name} must be number` + arrayTips
-                        });
-                    }
-                    break;
-                case Boolean:
-                    if (typeof value !== 'boolean') {
-                        validateErrors.push({
-                            parent: parentInst,
-                            field: metadata.name,
-                            message: `${metadata.name} must be boolean` + arrayTips
-                        });
-                    }
-                    break;
-                case Date:
-                    if (!(value instanceof Date)) {
-                        validateErrors.push({
-                            parent: parentInst,
-                            field: metadata.name,
-                            message: `${metadata.name} must be date` + arrayTips
-                        });
-                    }
-                    break;
-                case Object:
-                    if (typeof value !== 'object') {
-                        validateErrors.push({
-                            parent: parentInst,
-                            field: metadata.name,
-                            message: `${metadata.name} must be object` + arrayTips
-                        });
-                    }
-                default:
-                    if (metadata.enum) {
-                        const values = Object.keys(metadata.enum).map(key => metadata.enum[key]);
-                        if (values.every(eachValue => eachValue !== value)) {
-                            validateErrors.push({
-                                parent: parentInst,
-                                field: metadata.name,
-                                message: `${metadata.name} must be in [` + values.join(', ') + `]` + arrayTips
-                            });
-                        }
-                        return true;
-                    }
-
-                    return false;
-            }
-    
-            return true;
+        function addValidateError(field, message) {
+            validateErrors.push({
+                parent: parentInst,
+                field,
+                message: message.replace(/\$field/ig, field)
+            });
         }
 
-        if (propertyMetadata && checkBasicType(inst, propertyMetadata))
+        const checkBasicType = (value, metadata, options) => {
+            let inputCustomValidate: InputCustomValidate;
+
+            switch (
+                Array.isArray(inst[metadata.name])
+                    ? (options?.arrayType ?? Object)
+                    : (options?.enum ?? metadata.type)
+            ) {
+                case String:
+                    inputCustomValidate = IsString();
+                    break;
+                case Number:
+                    inputCustomValidate = IsNumber();
+                    break;
+                case Boolean:
+                    inputCustomValidate = IsBoolean();
+                    break;
+                case Date:
+                    inputCustomValidate = IsDate();
+                    break;
+                case Object:
+                    inputCustomValidate = IsObject();
+                    break;
+                default:
+                    if (options?.enum) {
+                        inputCustomValidate = IsEnum(options.enum);
+                    }
+            }
+
+            if (inputCustomValidate && !inputCustomValidate.validate(value)) {
+                addValidateError(metadata.name, options?.message ?? inputCustomValidate.message);
+            }
+    
+            return !!inputCustomValidate;
+        }
+
+        if (propertyMetadata && checkBasicType(inst, propertyMetadata, defaultOptions))
             return;
 
-        const outputMetadata = getPropertyMetadata(propertyMetadata?.type ?? inst.constructor, 'input').filter(eachMetadata => !eachMetadata.disabled);
+        const inputMetadata = getPropertyMetadata(propertyMetadata?.type ?? inst.constructor, 'input');
 
-        for (const eachOutputMetadata of outputMetadata) {
-            const value = inst[eachOutputMetadata.name];
+        for (const eachInputMetadata of inputMetadata) {
+            let firstOptions = eachInputMetadata.options[0];
+            let defaultOptions: InputDefaultOptions;
+            if (firstOptions && !('validate' in firstOptions)) {
+                if (firstOptions.disabled)
+                    continue;
+
+                defaultOptions = firstOptions;
+            }
+
+            const value = inst[eachInputMetadata.name];
             if (value === undefined || value === null) {
-                if (eachOutputMetadata.required) {
-                    validateErrors.push({
-                        parent: parentInst,
-                        field: eachOutputMetadata.name,
-                        message: `${eachOutputMetadata.name} is required`
-                    });
+                if (eachInputMetadata.required) {
+                    addValidateError(eachInputMetadata.name, '$field is required');
                 }
             } else {
-                if (eachOutputMetadata.type === Array) {
-                    if (Array.isArray(value)) {
+                if (eachInputMetadata.type === Array) {
+                    const isArrayValidate = IsArray();
+
+                    if (isArrayValidate.validate(value)) {
                         for (const eachValue of value) {
-                            checkLoop(eachValue, eachOutputMetadata, inst);
+                            checkLoop(eachValue, eachInputMetadata, inst, defaultOptions);
                         }
                     } else {
-                        validateErrors.push({
-                            parent: parentInst,
-                            field: eachOutputMetadata.name,
-                            message: `${eachOutputMetadata.name} must be array`
-                        });
+                        addValidateError(eachInputMetadata.name, isArrayValidate.message);
                     }
-                } else if (!checkBasicType(value, eachOutputMetadata)) {
-                    checkLoop(value, eachOutputMetadata, inst);
+                } else if (!checkBasicType(value, eachInputMetadata, defaultOptions)) {
+                    checkLoop(value, eachInputMetadata, value, defaultOptions);
+                }
+
+                for (let i = 0; i < eachInputMetadata.options.length; i++) {
+                    const eachOptions = eachInputMetadata.options[i];
+                    if (eachOptions && 'validate' in eachOptions) {
+                        const nextOptions = eachInputMetadata.options[i + 1];
+                        let customOptions: InputCustomOptions;
+                        if (nextOptions && !('validate' in eachOptions)) {
+                            customOptions = nextOptions;
+                            i++;
+                        }
+
+                        if (!eachOptions.validate(value)) {
+                            addValidateError(eachInputMetadata.name, customOptions?.message ?? eachOptions.message);
+                            break;
+                        }
+                    }
                 }
             }
         }
