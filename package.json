@@ -41,7 +41,8 @@
         "url": "https://github.com/master-style/business.git"
     },
     "dependencies": {
-        "reflect-metadata": "^0.1.13"
+        "reflect-metadata": "^0.1.13",
+        "validator": "^13.5.2"
     },
     "devDependencies": {
         "@babel/core": "^7.12.10",
