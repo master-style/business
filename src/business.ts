@@ -1,5 +1,6 @@
 import { getPropertyMetadata } from './utils/property';
 import { BusinessModel } from './business-model';
+import { InputDefaultOptions } from './interfaces/input-default-options';
 
 export function Business() {
     return constructor =>
@@ -12,7 +13,16 @@ export function Business() {
                     for (const eachInputMetadata of inputMetadata) {
                         const value = data[eachInputMetadata.name];
         
-                        const type = eachInputMetadata.arrayType ?? eachInputMetadata.type;
+                        let firstOptions = eachInputMetadata.options[0];
+                        let defaultOptions: InputDefaultOptions;
+                        if (firstOptions && !('validate' in firstOptions)) {
+                            if (firstOptions.disabled)
+                                continue;
+
+                            defaultOptions = firstOptions;
+                        }
+
+                        const type = defaultOptions?.arrayType ?? eachInputMetadata.type;
 
                         if (type.prototype instanceof BusinessModel && value !== undefined && value !== null) {
                             if (eachInputMetadata.type === Array) {
