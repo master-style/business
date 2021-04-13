@@ -56,7 +56,7 @@ export function Business() {
                     for (let i = 0; i < eachOutputMetadata.options.length; i++) {
                         const eachOptions = eachOutputMetadata.options[i];
                         if (eachOptions) {
-                            value = eachOptions.transform(value);
+                            value = eachOptions.transform(value, this);
                         }
                     }
 

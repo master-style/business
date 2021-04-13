@@ -1,3 +1,3 @@
 export interface OutputCustomTransform {
-    transform: (value: unknown) => any;
+    transform: (value: unknown, instance: unknown) => any;
 }

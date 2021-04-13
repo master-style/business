@@ -59,7 +59,7 @@ export function validate(instance): ValidationError[] {
                     }
             }
 
-            if (inputCustomValidate && !inputCustomValidate.validate(value)) {
+            if (inputCustomValidate && !inputCustomValidate.validate(value, inst)) {
                 addValidateError(metadata.name, options?.message ?? inputCustomValidate.message);
             }
     
@@ -90,7 +90,7 @@ export function validate(instance): ValidationError[] {
                 if (eachInputMetadata.type === Array) {
                     const isArrayValidate = IsArray();
 
-                    if (isArrayValidate.validate(value)) {
+                    if (isArrayValidate.validate(value, inst)) {
                         for (const eachValue of value) {
                             checkLoop(eachValue, eachInputMetadata, inst, defaultOptions);
                         }
@@ -111,7 +111,7 @@ export function validate(instance): ValidationError[] {
                             i++;
                         }
 
-                        if (!eachOptions.validate(value)) {
+                        if (!eachOptions.validate(value, inst)) {
                             addValidateError(eachInputMetadata.name, customOptions?.message ?? eachOptions.message);
                             break;
                         }
