@@ -17,7 +17,7 @@ function handleDecorator(optionOrValidate: InputDefaultOptions | InputCustomVali
     };
 }
 
-export function Rqeuired(optionOrValidate?: InputDefaultOptions | InputCustomValidate, ...params: Array<InputCustomValidate | InputCustomOptions>) {
+export function Required(optionOrValidate?: InputDefaultOptions | InputCustomValidate, ...params: Array<InputCustomValidate | InputCustomOptions>) {
     return handleDecorator(optionOrValidate, true, ...params);
 }
 

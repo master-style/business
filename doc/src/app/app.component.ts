@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Business, Rqeuired, Output, BusinessModel, Optional } from '../../../src';
+import { Business, Required, Output, BusinessModel, Optional } from '../../../src';
 
 @Component({
     selector: 'app-root',
@@ -54,10 +54,10 @@ export class AppComponent implements OnInit {
 class SigningUpAddress extends BusinessModel {
 
     @Output()
-    @Rqeuired()
+    @Required()
     city: string;
 
-    @Rqeuired()
+    @Required()
     district: string;
 
     @Optional()
@@ -68,11 +68,11 @@ class SigningUpAddress extends BusinessModel {
 export class MyBusiness extends BusinessModel {
 
     @Output()
-    @Rqeuired()
+    @Required()
     name: string;
 
     @Output()
-    @Rqeuired()
+    @Required()
     address: SigningUpAddress;
 
     artifact = 1;
