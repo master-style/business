@@ -1,4 +1,4 @@
 export interface InputCustomValidate {
     message: string;
-    validate: (value: unknown, instance: unknown) => boolean;
+    validate: (value: any, instance: any) => boolean;
 }
