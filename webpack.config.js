@@ -2,7 +2,6 @@
 const path = require('path');
 const Webpack = require('webpack');
 const glob = require('globby');
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const package = require('./package.json');
 
@@ -52,12 +51,12 @@ module.exports = env => {
             ]
         },
         output: {
+            clean: true,
             path: path.resolve('./dist'),
-            libraryTarget: 'umd',
-            globalObject: 'this'
+            globalObject: 'this',
+            libraryTarget: 'umd'
         },
         plugins: [
-            new CleanWebpackPlugin(),
             new Webpack.ProgressPlugin(),
             new BundleAnalyzerPlugin({
                 analyzerMode: 'static',
