@@ -11,8 +11,6 @@ export function Business() {
                 if (data) {
                     const inputMetadata = getPropertyMetadata(this.constructor, 'input').filter(eachMetadata => !eachMetadata.disabled);
                     for (const eachInputMetadata of inputMetadata) {
-                        const value = data[eachInputMetadata.name];
-        
                         let firstOptions = eachInputMetadata.options[0];
                         let defaultOptions: InputDefaultOptions;
                         if (firstOptions && !('validate' in firstOptions)) {
@@ -21,6 +19,9 @@ export function Business() {
 
                             defaultOptions = firstOptions;
                         }
+
+                        const name = defaultOptions?.sourceName ?? eachInputMetadata.name;
+                        const value = data[name];
 
                         const type = defaultOptions?.arrayType ?? eachInputMetadata.type;
 
@@ -34,7 +35,7 @@ export function Business() {
                             } else {
                                 this[eachInputMetadata.name] = new type(value);
                             }
-                        } else if (eachInputMetadata.name in data) {
+                        } else if (name in data) {
                             this[eachInputMetadata.name] = value;
                         }
                     }

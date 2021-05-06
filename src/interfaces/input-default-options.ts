@@ -3,4 +3,5 @@ export interface InputDefaultOptions {
     arrayType?: any;
     enum?: Record<string, any>;
     message?: string;
+    sourceName?: string;
 }
