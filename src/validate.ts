@@ -16,10 +16,10 @@ export interface ValidationError {
     message: string
 }
 
-export function validate(instance): ValidationError[] {
+export async function validate(instance): Promise<ValidationError[]> {
     const validateErrors = [];
 
-    (function checkLoop(inst, propertyMetadata?, parent?, defaultOptions?) {
+    await (async function checkLoop(inst, propertyMetadata?, parent?, defaultOptions?) {
         const parentInst = parent ?? inst;
 
         function addValidateError(field, message) {
@@ -30,7 +30,7 @@ export function validate(instance): ValidationError[] {
             });
         }
 
-        const checkBasicType = (value, metadata, options) => {
+        const checkBasicType = async (value, metadata, options) => {
             let inputCustomValidate: InputCustomValidate;
 
             switch (
@@ -59,14 +59,14 @@ export function validate(instance): ValidationError[] {
                     }
             }
 
-            if (inputCustomValidate && !inputCustomValidate.validate(value, inst)) {
+            if (inputCustomValidate && !await inputCustomValidate.validate(value, inst)) {
                 addValidateError(metadata.name, options?.message ?? inputCustomValidate.message);
             }
     
             return !!inputCustomValidate;
         }
 
-        if (propertyMetadata && checkBasicType(inst, propertyMetadata, defaultOptions))
+        if (propertyMetadata && await checkBasicType(inst, propertyMetadata, defaultOptions))
             return;
 
         const inputMetadata = getPropertyMetadata(propertyMetadata?.type ?? inst.constructor, 'input');
@@ -90,15 +90,15 @@ export function validate(instance): ValidationError[] {
                 if (eachInputMetadata.type === Array) {
                     const isArrayValidate = IsArray();
 
-                    if (isArrayValidate.validate(value, inst)) {
+                    if (await isArrayValidate.validate(value, inst)) {
                         for (const eachValue of value) {
-                            checkLoop(eachValue, eachInputMetadata, inst, defaultOptions);
+                            await checkLoop(eachValue, eachInputMetadata, inst, defaultOptions);
                         }
                     } else {
                         addValidateError(eachInputMetadata.name, isArrayValidate.message);
                     }
                 } else if (!checkBasicType(value, eachInputMetadata, defaultOptions)) {
-                    checkLoop(value, eachInputMetadata, value, defaultOptions);
+                    await checkLoop(value, eachInputMetadata, value, defaultOptions);
                 }
 
                 for (let i = 0; i < eachInputMetadata.options.length; i++) {
@@ -111,7 +111,7 @@ export function validate(instance): ValidationError[] {
                             i++;
                         }
 
-                        if (!eachOptions.validate(value, inst)) {
+                        if (!await eachOptions.validate(value, inst)) {
                             addValidateError(eachInputMetadata.name, customOptions?.message ?? eachOptions.message);
                             break;
                         }

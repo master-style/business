@@ -1,4 +1,4 @@
 export interface InputCustomValidate {
     message: string;
-    validate: (value: any, instance: any) => boolean;
+    validate: (value: any, instance: any) => boolean | Promise<boolean>;
 }
