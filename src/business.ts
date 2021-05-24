@@ -1,6 +1,7 @@
 import { getPropertyMetadata } from './utils/property';
 import { BusinessModel } from './business-model';
 import { InputDefaultOptions } from './interfaces/input-default-options';
+import { OutputDefaultOptions } from './interfaces/output-default-options';
 
 export function Business() {
     return constructor =>
@@ -48,9 +49,12 @@ export function Business() {
                 const outputMetadata = getPropertyMetadata(this.constructor, 'output');
                 for (const eachOutputMetadata of outputMetadata) {
                     let firstOptions = eachOutputMetadata.options[0];
+                    let defaultOptions: OutputDefaultOptions;
                     if (firstOptions && !('transform' in firstOptions)) {
                         if (firstOptions.disabled)
                             continue;
+
+                        defaultOptions = firstOptions;
                     }
 
                     let value = this[eachOutputMetadata.name];
@@ -60,8 +64,11 @@ export function Business() {
                             value = eachOptions.transform(value, this);
                         }
                     }
+                    value = value ?? null;
 
-                    newObj[eachOutputMetadata.name] = value ?? null;
+                    if (value !== defaultOptions?.ignore) {
+                        newObj[eachOutputMetadata.name] = value;
+                    }
                 }
         
                 return newObj;
