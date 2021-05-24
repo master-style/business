@@ -1,8 +1,8 @@
 import { ClassType } from '../interfaces/class-type';
 import 'reflect-metadata';
 
-export function definePropertyMetadata<T>(
-    target: ClassType<T>,
+export function definePropertyMetadata(
+    target: Object,
     name: string,
     columnPropOptions: { key: string, [otherKey: string]: any },
     options?: {

@@ -1,11 +1,10 @@
 import { definePropertyMetadata } from '../utils/property';
-import { ClassType } from '../interfaces/class-type';
 import { InputDefaultOptions }  from '../interfaces/input-default-options';
 import { InputCustomOptions } from '../interfaces/input-custom-options'
 import { InputCustomValidate } from '../interfaces/input-custom-validate';
 
-export function registerInputDecorator<T>(
-    target: ClassType<T>,
+export function registerInputDecorator(
+    target: Object,
     propertyName: string,
     type: Function,
     required: boolean,
