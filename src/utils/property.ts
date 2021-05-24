@@ -4,9 +4,12 @@ import 'reflect-metadata';
 export function definePropertyMetadata<T>(
     target: ClassType<T>,
     name: string,
-    columnPropOptions: { key: string, [ortherKey: string]: any }
+    columnPropOptions: { key: string, [otherKey: string]: any },
+    options?: {
+        type?: Function
+    }
 ): void {
-    const type = Reflect.getMetadata('design:type', target, name);
+    const type = options?.type ?? Reflect.getMetadata('design:type', target, name);
     const newProperty = Object.assign(
         columnPropOptions,
         {

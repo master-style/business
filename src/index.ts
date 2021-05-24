@@ -11,3 +11,4 @@ export * from './utils/is-enum';
 export * from './utils/is-in';
 export * from './utils/max-length';
 export * from './utils/min-length';
+export * from './utils/register-input-decorator';
