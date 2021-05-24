@@ -58,7 +58,7 @@ export function Business() {
                     }
 
                     let value = this[eachOutputMetadata.name];
-                    for (let i = 0; i < eachOutputMetadata.options.length; i++) {
+                    for (let i = (defaultOptions ? 1 : 0); i < eachOutputMetadata.options.length; i++) {
                         const eachOptions = eachOutputMetadata.options[i];
                         if (eachOptions) {
                             value = eachOptions.transform(value, this);
