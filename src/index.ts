@@ -12,3 +12,5 @@ export * from './utils/is-in';
 export * from './utils/max-length';
 export * from './utils/min-length';
 export * from './utils/register-input-decorator';
+export * from './utils/is-email';
+export * from './utils/is-mobile-phone';
