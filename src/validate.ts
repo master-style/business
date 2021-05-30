@@ -35,7 +35,7 @@ export async function validate(instance): Promise<ValidationError[]> {
 
             switch (
                 Array.isArray(inst[metadata.name])
-                    ? (options?.arrayType ?? Object)
+                    ? (options?.arrayType ?? options?.enum ?? Object)
                     : (options?.enum ?? metadata.type)
             ) {
                 case String:
