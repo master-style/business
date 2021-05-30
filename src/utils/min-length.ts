@@ -2,7 +2,7 @@ import { InputCustomValidate } from '../interfaces/input-custom-validate';
 
 export function MinLength(length: number): InputCustomValidate {
     return {
-        message: `$field length must at least ${length}`,
+        message: `$field length must be at least ${length}`,
         validate: (value) => {
             return Array.isArray(value)
                 ? value.length >= length
