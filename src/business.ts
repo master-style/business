@@ -38,14 +38,21 @@ export function Business() {
                                 this[eachInputMetadata.name] = new type(value);
                             }
                         } else if (name in data) {
-                            if (type === Date && defaultOptions?.dateFormat) {
-                                const newDayjs = dayjs(value, defaultOptions.dateFormat);
-                                if (newDayjs.format(defaultOptions.dateFormat) === value) {
-                                    this[eachInputMetadata.name] = newDayjs.toDate();
+                            if (type === Date && !(value instanceof Date) && value !== undefined && value !== null) {
+                                if (defaultOptions?.dateFormat) {
+                                    const newDayjs = dayjs(value, defaultOptions.dateFormat);
+                                    if (newDayjs.format(defaultOptions.dateFormat) === value) {
+                                        this[eachInputMetadata.name] = newDayjs.toDate();
+                                    }
                                 } else {
-                                    this[eachInputMetadata.name] = value;
+                                    const newDate = new Date(value);
+                                    if (!isNaN(newDate.getTime())) {
+                                        this[eachInputMetadata.name] = newDate;
+                                    }
                                 }
-                            } else {
+                            }
+
+                            if (!this[eachInputMetadata.name]) {
                                 this[eachInputMetadata.name] = value;
                             }
                         }
