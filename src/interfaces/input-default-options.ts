@@ -4,4 +4,5 @@ export interface InputDefaultOptions {
     enum?: Record<string, any>;
     message?: string;
     sourceName?: string;
+    dateFormat?: string;
 }

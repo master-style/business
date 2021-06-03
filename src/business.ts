@@ -2,6 +2,7 @@ import { getPropertyMetadata } from './utils/property';
 import { BusinessModel } from './business-model';
 import { InputDefaultOptions } from './interfaces/input-default-options';
 import { OutputDefaultOptions } from './interfaces/output-default-options';
+import * as dayjs from 'dayjs';
 
 export function Business() {
     return constructor =>
@@ -37,7 +38,16 @@ export function Business() {
                                 this[eachInputMetadata.name] = new type(value);
                             }
                         } else if (name in data) {
-                            this[eachInputMetadata.name] = value;
+                            if (type === Date && defaultOptions?.dateFormat) {
+                                const newDayjs = dayjs(value, defaultOptions.dateFormat);
+                                if (newDayjs.format(defaultOptions.dateFormat) === value) {
+                                    this[eachInputMetadata.name] = newDayjs.toDate();
+                                } else {
+                                    this[eachInputMetadata.name] = value;
+                                }
+                            } else {
+                                this[eachInputMetadata.name] = value;
+                            }
                         }
                     }
                 }
