@@ -5,7 +5,7 @@
         "declaration": true,
         "experimentalDecorators": true,
         "moduleResolution": "node",
-        "esModuleInterop": true,
+        "esModuleInterop": false,
         "target": "es2015",
         "module": "es2020",
         "skipLibCheck": true,
