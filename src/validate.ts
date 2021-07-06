@@ -51,8 +51,7 @@ export async function validate(instance): Promise<ValidationError[]> {
                     inputCustomValidate = IsDate();
                     break;
                 case Object:
-                    inputCustomValidate = IsObject();
-                    break;
+                    return true;
                 default:
                     if (options?.enum) {
                         inputCustomValidate = IsEnum(options.enum);
